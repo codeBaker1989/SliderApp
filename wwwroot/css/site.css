@@ -1,0 +1,25 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}
+.swiper-container {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  width: 100%; /* Laat de afbeelding de volledige breedte gebruiken */
+  height: auto; /* Handhaaf de verhouding van de afbeelding */
+  object-fit: contain; /* Zorg ervoor dat de afbeelding in de container past zonder uit te rekken */
+}
