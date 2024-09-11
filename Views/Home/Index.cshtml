@@ -1,99 +1,19 @@
-﻿<!DOCTYPE html>
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Slider with Fullscreen and Autoplay</title>
+    <title>Image Slider</title>
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
 
     <!-- CSS styling voor fullscreen en swiper -->
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: black;
-        }
-        .swiper-container {
-            width: 100%;
-            height: 100%;
-        }
-
-        .swiper-slide {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .swiper-slide img {
-            width: 100%; /* Laat de afbeelding de volledige breedte gebruiken */
-            height: auto; /* Handhaaf de verhouding van de afbeelding */
-            object-fit: contain; /* Zorg ervoor dat de afbeelding in de container past zonder uit te rekken */
-        }
-    </style>
 </head>
 <body>
-    <div id="slider" class="swiper-container">
-        <div class="swiper-wrapper">
-            <!-- Dynamische afbeeldingen van het model -->
-            @foreach (var imagePath in Model.ImagePaths)
-            {
-                <div class="swiper-slide">
-                    <img src="@imagePath" alt="Image">
-                </div>
-            }
-        </div>
-        <!-- Navigatieknoppen (optioneel) -->
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-    </div>
 
-    <!-- Swiper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-
-    <!-- Fullscreen script en Swiper autoplay configuratie -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialiseer Swiper met autoplay en slidesPerView configuratie
-            var swiper = new Swiper('.swiper-container', {
-                loop: true, // Herhaal de slides
-                autoplay: {
-                    delay: 3000, // 3 seconden per afbeelding
-                    disableOnInteraction: false, // Stop autoplay niet bij interactie
-                },
-                slidesPerView: 1, // Toon slechts één slide per keer
-                spaceBetween: 0, // Geen ruimte tussen slides
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-            });
-
-            // Zet fullscreen aan
-            function toggleFullScreen() {
-                var docElm = document.documentElement;
-                if (docElm.requestFullscreen) {
-                    docElm.requestFullscreen();
-                } else if (docElm.mozRequestFullScreen) { // Firefox
-                    docElm.mozRequestFullScreen();
-                } else if (docElm.webkitRequestFullScreen) { // Chrome, Safari and Opera
-                    docElm.webkitRequestFullscreen();
-                } else if (docElm.msRequestFullscreen) { // IE/Edge
-                    docElm.msRequestFullscreen();
-                }
-            }
-
-            // Zet het document in fullscreen als de pagina laadt
-            toggleFullScreen();
-        });
-    </script>
 </body>
 </html>

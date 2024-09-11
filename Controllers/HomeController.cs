@@ -14,10 +14,16 @@ public class HomeController : Controller
     }
 
      public IActionResult Index()
-        {
-            var model = new ImageModel();
-            return View(model);
-        }
+    {
+        return View();
+    }
+
+    public IActionResult Slider()
+    {
+        ViewBag.HideSidebar = true; 
+        var model = new ImageModel();
+        return View(model); 
+    }
 
     public IActionResult Privacy()
     {

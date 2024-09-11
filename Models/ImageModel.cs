@@ -11,7 +11,6 @@ namespace ImageSliderApp.Models
             // Pad naar de map met afbeeldingen in de wwwroot-map
             string imagesDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
 
-            // Controleer of de directory bestaat
             if (Directory.Exists(imagesDirectory))
             {
                 // Haal alle jpg-, png- en jpeg-bestanden op

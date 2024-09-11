@@ -28,3 +28,4 @@
 /Users/willemdejong/ImageSliderApp/obj/Debug/net8.0/ImageSliderApp.pdb
 /Users/willemdejong/ImageSliderApp/obj/Debug/net8.0/ImageSliderApp.genruntimeconfig.cache
 /Users/willemdejong/ImageSliderApp/obj/Debug/net8.0/ref/ImageSliderApp.dll
+/Users/willemdejong/ImageSliderApp/obj/Debug/net8.0/ImageSliderApp.sourcelink.json

@@ -1,0 +1,80 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model ImageSliderApp.Models.ImageModel
+
+<div class="swiper">
+  <div class="swiper-wrapper">
+    @foreach (var imagePath in Model.ImagePaths)
+    {
+        <div class="swiper-slide">
+            <img src="@imagePath" alt="Image">
+        </div>
+    }
+  </div>
+  
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+    }
+
+    .swiper {
+       width: 1512px;
+    }
+
+    .swiper-wrapper {
+        display: flex;
+    }
+
+    .swiper-slide {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .swiper-slide img {
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+</style>
+
+<!-- Swiper.js -->
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var swiper = new Swiper('.swiper', {
+            loop: true,
+            autoplay: {
+                delay: 10000,
+                disableOnInteraction: false,
+            },
+            slidesPerView: 1,
+            spaceBetween: 0,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            scrollbar: {
+                el: '.swiper-scrollbar',
+            },
+        });
+    });
+</script>
