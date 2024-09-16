@@ -1,29 +1,43 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using ImageSliderApp.Models;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace ImageSliderApp.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ApplicationDbContext _context;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ApplicationDbContext context)
     {
-        _logger = logger;
+        _context = context;
     }
 
-     public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var templates = await _context.Templates.ToListAsync();
+        return View(templates ?? new List<Template>());
     }
 
-    public IActionResult Slider()
-    {
-        ViewBag.HideSidebar = true; 
-        var model = new ImageModel();
-        return View(model); 
-    }
+    // public IActionResult Slider()
+    // {
+    //     ViewBag.HideSidebar = true; 
+    //     var model = new ImageModel();
+    //     return View(model); 
+    // }
+
+    public async Task<IActionResult> Slider(int roomId)
+{
+    // Haal templates op die aan de geselecteerde room zijn gekoppeld
+    var roomTemplates = await _context.RoomTemplates
+        .Include(rt => rt.Template)
+        .Where(rt => rt.RoomID == roomId)
+        .ToListAsync();
+
+    return View(roomTemplates);
+}
 
     public IActionResult Privacy()
     {

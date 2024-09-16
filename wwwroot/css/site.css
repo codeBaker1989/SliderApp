@@ -23,3 +23,16 @@ html, body {
   height: auto; /* Handhaaf de verhouding van de afbeelding */
   object-fit: contain; /* Zorg ervoor dat de afbeelding in de container past zonder uit te rekken */
 }
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.overlay {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5); /* Donkere achtergrond voor leesbaarheid */
+  color: white;
+  padding: 5px;
+  border-radius: 3px;
+  font-size: 12px;
+}

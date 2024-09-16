@@ -1,0 +1,15 @@
+﻿@model ImageSliderApp.Models.Template
+
+<h2>Add a New Template</h2>
+
+<form asp-action="AddTemplate" method="post">
+    <div class="form-group">
+        <label>Template Name:</label>
+        <input type="text" asp-for="TemplateName" class="form-control" placeholder="Enter template name" />
+        <span asp-validation-for="TemplateName" class="text-danger"></span>
+    </div>
+
+    <!-- Omdat je geen afbeelding hoeft te uploaden, is het uploadveld verwijderd -->
+
+    <button type="submit" class="btn btn-primary">Save Template</button>
+</form>

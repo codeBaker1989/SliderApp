@@ -2,34 +2,41 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ImageSliderApp.Models
 {
-    public class ApplicationDbContext : DbContext
+   public class ApplicationDbContext : DbContext
+{
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
-
-        public DbSet<Hall> Halls { get; set; }
-        public DbSet<Template> Templates { get; set; }
-        public DbSet<HallTemplate> HallTemplates { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-            // Configure the many-to-many relationship between Hall and Template via HallTemplate
-            modelBuilder.Entity<HallTemplate>()
-                .HasKey(ht => new { ht.HallID, ht.TemplateID }); // Composite key
-
-            modelBuilder.Entity<HallTemplate>()
-                .HasOne(ht => ht.Hall)
-                .WithMany(h => h.HallTemplates)
-                .HasForeignKey(ht => ht.HallID);
-
-            modelBuilder.Entity<HallTemplate>()
-                .HasOne(ht => ht.Template)
-                .WithMany(t => t.HallTemplates)
-                .HasForeignKey(ht => ht.TemplateID);
-        }
     }
+
+    public DbSet<Room> Rooms { get; set; }          // Hernoemd van Hall naar Room
+    public DbSet<Template> Templates { get; set; }
+    
+    public DbSet<Overlay> Overlays { get; set; }
+    public DbSet<RoomTemplate> RoomTemplates { get; set; }  // Hernoemd van HallTemplate naar RoomTemplate
+
+
+   protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    base.OnModelCreating(modelBuilder);
+
+    modelBuilder.Entity<Room>()
+        .Property(r => r.RoomName)
+        .HasMaxLength(255);  // Stel een specifieke lengte in voor RoomName
+
+    modelBuilder.Entity<RoomTemplate>()
+        .HasKey(rt => new { rt.RoomID, rt.TemplateID });
+
+    modelBuilder.Entity<RoomTemplate>()
+        .HasOne(rt => rt.Room)
+        .WithMany(r => r.RoomTemplates)
+        .HasForeignKey(rt => rt.RoomID);
+
+    modelBuilder.Entity<RoomTemplate>()
+        .HasOne(rt => rt.Template)
+        .WithMany(t => t.RoomTemplates)
+        .HasForeignKey(rt => rt.TemplateID);
+}
+}
+
 }

@@ -1,19 +1,30 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@model IEnumerable<ImageSliderApp.Models.Template>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Slider</title>
-    <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+<h2>Templates</h2>
 
-    <!-- CSS styling voor fullscreen en swiper -->
-</head>
-<body>
-
-</body>
-</html>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Template Name</th>
+            <th>Template Image</th>
+            <th>Actionsss</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var template in Model)
+        {
+            <tr>
+                <td>@template.TemplateName</td>
+                <td>
+                    <img src="@template.TemplateImagePath" alt="Template Image" width="100" />
+                </td>
+                <td>
+                    <!-- Link om naar de AddOverlay pagina te gaan voor het betreffende template -->
+                    <a href="@Url.Action("AddOverlay", "Template", new { templateId = template.TemplateID })" class="btn btn-primary">
+                        Add Overlay
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

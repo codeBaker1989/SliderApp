@@ -1,0 +1,14 @@
+@model ImageSliderApp.Models.RoomTemplate
+
+<h2>Assign Template to Room (Slider)</h2>
+
+<form asp-action="AssignToRoom" method="post">
+    <input type="hidden" asp-for="TemplateID" />
+
+    <div class="form-group">
+        <label>Select Room (Slider):</label>
+        <select asp-for="RoomID" asp-items="ViewBag.Rooms" class="form-control"></select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Assign Template</button>
+</form>

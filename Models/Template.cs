@@ -6,7 +6,7 @@ namespace ImageSliderApp.Models
         public string TemplateName { get; set; }
         public string TemplateImagePath { get; set; }
 
-        // Navigation property for many-to-many relationship with Hall via HallTemplate
-        public ICollection<HallTemplate> HallTemplates { get; set; }
+        // Een template kan meerdere overlays hebben
+        public List<Overlay> Overlays { get; set; }
     }
 }

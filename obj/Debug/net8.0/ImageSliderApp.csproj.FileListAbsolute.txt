@@ -41,6 +41,8 @@
 /Users/willemdejong/ImageSliderApp/bin/Debug/net8.0/Microsoft.SqlServer.Server.dll
 /Users/willemdejong/ImageSliderApp/bin/Debug/net8.0/Microsoft.Win32.SystemEvents.dll
 /Users/willemdejong/ImageSliderApp/bin/Debug/net8.0/Mono.TextTemplating.dll
+/Users/willemdejong/ImageSliderApp/bin/Debug/net8.0/MySqlConnector.dll
+/Users/willemdejong/ImageSliderApp/bin/Debug/net8.0/Pomelo.EntityFrameworkCore.MySql.dll
 /Users/willemdejong/ImageSliderApp/bin/Debug/net8.0/System.CodeDom.dll
 /Users/willemdejong/ImageSliderApp/bin/Debug/net8.0/System.Composition.AttributedModel.dll
 /Users/willemdejong/ImageSliderApp/bin/Debug/net8.0/System.Composition.Convention.dll
@@ -135,5 +137,3 @@
 /Users/willemdejong/ImageSliderApp/obj/Debug/net8.0/ImageSliderApp.pdb
 /Users/willemdejong/ImageSliderApp/obj/Debug/net8.0/ImageSliderApp.genruntimeconfig.cache
 /Users/willemdejong/ImageSliderApp/obj/Debug/net8.0/ref/ImageSliderApp.dll
-/Users/willemdejong/ImageSliderApp/bin/Debug/net8.0/MySqlConnector.dll
-/Users/willemdejong/ImageSliderApp/bin/Debug/net8.0/Pomelo.EntityFrameworkCore.MySql.dll

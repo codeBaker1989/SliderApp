@@ -38,6 +38,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/willemdejong/ImageSliderApp/Views/Template/AddOverlay.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVGVtcGxhdGUvQWRkT3ZlcmxheS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/willemdejong/ImageSliderApp/Views/Template/AddTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVGVtcGxhdGUvQWRkVGVtcGxhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/willemdejong/ImageSliderApp/Views/Template/AsignToRoom.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVGVtcGxhdGUvQXNpZ25Ub1Jvb20uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/willemdejong/ImageSliderApp/Views/Template/ViewTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVGVtcGxhdGUvVmlld1RlbXBsYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/willemdejong/ImageSliderApp/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
