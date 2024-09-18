@@ -2,6 +2,8 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using ImageSliderApp.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace ImageSliderApp.Controllers;
 
@@ -26,27 +28,54 @@ public class TemplateController : Controller
             var overlay = new Overlay { TemplateID = templateId };
             return View(overlay);
         }
-
         // POST: /Template/AddOverlay
 [HttpPost]
-public async Task<IActionResult> AddOverlay(Overlay overlay)
+public async Task<IActionResult> AddOverlay(int templateId, string content, string position)
 {
+    // Log om te zien of het TemplateID correct is
+    Console.WriteLine($"Received TemplateID: {templateId}");
+
+    // Controleer of het template bestaat
+    var template = await _context.Templates.FirstOrDefaultAsync(t => t.TemplateID == templateId);
+
+    if (template == null)
+    {
+        ModelState.AddModelError("", "The specified template does not exist.");
+        return View();  // Toon de view opnieuw met een foutmelding
+    }
+
+    // Maak de overlay aan
+    var overlay = new Overlay
+    {
+        Content = content,
+        Position = position,
+        TemplateID = template.TemplateID  // Gebruik het TemplateID van het gevonden template
+    };
+
     if (ModelState.IsValid)
     {
-        // Voeg de overlay toe aan de database
         _context.Overlays.Add(overlay);
-        await _context.SaveChangesAsync();
-        return RedirectToAction("Index", "Home");
+
+        try
+        {
+            var result = await _context.SaveChangesAsync();
+
+            if (result > 0)
+            {
+                return RedirectToAction("ViewTemplate", new { templateId = template.TemplateID });
+            }
+            else
+            {
+                ModelState.AddModelError("", "Failed to add the overlay.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error adding overlay: {ex.Message}");
+            ModelState.AddModelError("", "An error occurred while adding the overlay.");
+        }
     }
 
-    // Als het model niet geldig is, kun je foutmeldingen loggen voor debuggen
-    var errors = ModelState.Values.SelectMany(v => v.Errors);
-    foreach (var error in errors)
-    {
-        Console.WriteLine(error.ErrorMessage); // Log de foutmeldingen
-    }
-
-    // Als er een fout is, toon de overlay opnieuw in de view
     return View(overlay);
 }
 

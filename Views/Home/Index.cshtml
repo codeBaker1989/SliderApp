@@ -7,7 +7,8 @@
         <tr>
             <th>Template Name</th>
             <th>Template Image</th>
-            <th>Actionsss</th>
+            <th>Overlays</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -15,8 +16,33 @@
         {
             <tr>
                 <td>@template.TemplateName</td>
+                <td style="position: relative;">
+                    <!-- Toon de afbeelding -->
+                    <img src="@template.TemplateImagePath" alt="Template Image" width="100" style="width: 30%; height: 30;" />
+
+                    <!-- Loop door de overlays en plaats ze over de afbeelding -->
+                    @foreach (var overlay in template.Overlays)
+                    {
+                        <div class="overlay" style="position: absolute; @GetOverlayPosition(overlay.Position); background: rgba(0, 0, 0, 0.5); color: white; padding: 5px;">
+                            @overlay.Content
+                        </div>
+                    }
+                </td>
                 <td>
-                    <img src="@template.TemplateImagePath" alt="Template Image" width="100" />
+                    <!-- Toon de overlay-inhoud -->
+                    @if (template.Overlays.Count > 0)
+                    {
+                        <ul>
+                            @foreach (var overlay in template.Overlays)
+                            {
+                                <li>@overlay.Content</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span>No overlays</span>
+                    }
                 </td>
                 <td>
                     <!-- Link om naar de AddOverlay pagina te gaan voor het betreffende template -->
@@ -28,3 +54,29 @@
         }
     </tbody>
 </table>
+
+<!-- CSS voor de overlays -->
+<style>
+    .overlay {
+        font-size: 12px;
+        border-radius: 3px;
+        padding: 5px;
+        color: white;
+        /* Voeg meer styling toe als nodig */
+    }
+</style>
+
+<!-- Helper functie voor overlay posities -->
+@functions {
+    public string GetOverlayPosition(string position)
+    {
+        return position switch
+        {
+            "top-left" => "top: 10px; left: 10px;",
+            "top-right" => "top: 10px; right: 10px;",
+            "bottom-left" => "bottom: 10px; left: 10px;",
+            "bottom-right" => "bottom: 10px; right: 10px;",
+            _ => "top: 0; left: 0;"  // Standaardpositie
+        };
+    }
+}

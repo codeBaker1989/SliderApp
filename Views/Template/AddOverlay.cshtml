@@ -1,22 +1,25 @@
 @model ImageSliderApp.Models.Overlay
 
-<h2>Add Overlay to Template</h2>
-
-<!-- Verborgen veld voor TemplateID -->
-<input type="hidden" asp-for="TemplateID" />
+<h2>Add Overlay</h2>
 
 <form asp-action="AddOverlay" method="post">
     <div class="form-group">
-        <label>Overlay Content:</label>
-        <input type="text" asp-for="Content" class="form-control" placeholder="Enter overlay content" />
-        <span asp-validation-for="Content" class="text-danger"></span>
+        <label for="content">Overlay Content:</label>
+        <input type="text" name="content" class="form-control" placeholder="Enter overlay content" required />
     </div>
 
     <div class="form-group">
-        <label>Overlay Position:</label>
-        <input type="text" asp-for="Position" class="form-control" placeholder="Enter position (e.g., top-left, bottom-right)" />
-        <span asp-validation-for="Position" class="text-danger"></span>
+        <label for="position">Overlay Position:</label>
+        <select name="position" class="form-control" required>
+            <option value="top-left">Top Left</option>
+            <option value="top-right">Top Right</option>
+            <option value="bottom-left">Bottom Left</option>
+            <option value="bottom-right">Bottom Right</option>
+        </select>
     </div>
 
-    <button type="submit" class="btn btn-primary">Save Overlay</button>
+    <!-- Voeg het TemplateID toe als verborgen veld -->
+    <input type="hidden" name="templateId" value="@ViewBag.TemplateID" />
+
+    <button type="submit" class="btn btn-primary">Add Overlay</button>
 </form>

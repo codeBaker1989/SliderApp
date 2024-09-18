@@ -2,29 +2,50 @@
 
 <h2>@Model.TemplateName</h2>
 
+@functions {
+    public string GetOverlayPosition(string position)
+    {
+        return position switch
+        {
+            "top-left" => "top: 10px; left: 10px;",
+            "top-right" => "top: 10px; right: 10px;",
+            "bottom-left" => "bottom: 10px; left: 10px;",
+            "bottom-right" => "bottom: 10px; right: 10px;",
+            _ => "top: 0; left: 0;"  // Default fallback
+        };
+    }
+}
+
+
 <div class="image-container" style="position: relative; display: inline-block;">
     <!-- Toon de afbeelding -->
     <img src="@Model.TemplateImagePath" alt="Template Image" style="width: 100%; height: auto;" />
 
-    <!-- Toon de overlays -->
+    <!-- Loop door de overlays en plaats ze met de juiste positie -->
     @foreach (var overlay in Model.Overlays)
     {
-        <div class="overlay" style="position: absolute; @GetOverlayPosition(overlay.Position); background: rgba(0, 0, 0, 0.5); color: white; padding: 5px;">
-            @overlay.Content
-        </div>
+        @if (overlay.Position != null)  // Controleer of de positie niet null is
+        {
+            <div class="overlay" style="position: absolute; @GetOverlayPosition(overlay.Position); background: rgba(0, 0, 0, 0.5); color: white; padding: 5px;">
+                @overlay.Content
+            </div>
+        }
+        else
+        {
+            <!-- Toon een foutmelding of standaard positie als Position null is -->
+            <div class="overlay" style="position: absolute; top: 0; left: 0; background: rgba(255, 0, 0, 0.5); color: white; padding: 5px;">
+                @overlay.Content (Position is null)
+            </div>
+        }
     }
 </div>
 
-@section Scripts {
-    <script>
-        function GetOverlayPosition(position) {
-            switch (position) {
-                case "top-left": return "top: 10px; left: 10px;";
-                case "top-right": return "top: 10px; right: 10px;";
-                case "bottom-left": return "bottom: 10px; left: 10px;";
-                case "bottom-right": return "bottom: 10px; right: 10px;";
-                default: return "";
-            }
-        }
-    </script>
-}
+
+<style>
+    .overlay {
+        font-size: 12px;
+        border-radius: 3px;
+        padding: 10px;
+        color: white;
+    }
+</style>

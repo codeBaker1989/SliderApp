@@ -17,8 +17,11 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var templates = await _context.Templates.ToListAsync();
-        return View(templates ?? new List<Template>());
+         var templates = await _context.Templates
+                                  .Include(t => t.Overlays)  // Zorg ervoor dat de overlays worden opgehaald
+                                  .ToListAsync();
+
+    return View(templates); 
     }
 
     // public IActionResult Slider()

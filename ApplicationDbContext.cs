@@ -10,10 +10,11 @@ namespace ImageSliderApp.Models
     }
 
     public DbSet<Room> Rooms { get; set; }          // Hernoemd van Hall naar Room
+
+    public DbSet<Overlay> Overlays { get; set; }
     public DbSet<Template> Templates { get; set; }
     
-    public DbSet<Overlay> Overlays { get; set; }
-    public DbSet<RoomTemplate> RoomTemplates { get; set; }  // Hernoemd van HallTemplate naar RoomTemplate
+    public DbSet<RoomTemplate> RoomTemplates { get; set; } 
 
 
    protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -22,7 +23,7 @@ namespace ImageSliderApp.Models
 
     modelBuilder.Entity<Room>()
         .Property(r => r.RoomName)
-        .HasMaxLength(255);  // Stel een specifieke lengte in voor RoomName
+        .HasMaxLength(255); 
 
     modelBuilder.Entity<RoomTemplate>()
         .HasKey(rt => new { rt.RoomID, rt.TemplateID });
@@ -36,6 +37,13 @@ namespace ImageSliderApp.Models
         .HasOne(rt => rt.Template)
         .WithMany(t => t.RoomTemplates)
         .HasForeignKey(rt => rt.TemplateID);
+
+       modelBuilder.Entity<Overlay>()
+        .HasOne(o => o.Template)
+        .WithMany(t => t.Overlays)
+        .HasForeignKey(o => o.TemplateID)
+        .OnDelete(DeleteBehavior.Cascade); 
+
 }
 }
 
