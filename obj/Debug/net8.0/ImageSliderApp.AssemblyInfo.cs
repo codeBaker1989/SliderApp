@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ImageSliderApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ad9440b3ccba556bc366cefbf1b4edc9a075949d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fcb35bc96cd1ff45ec53ddd2c7eb38d94c566202")]
 [assembly: System.Reflection.AssemblyProductAttribute("ImageSliderApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ImageSliderApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

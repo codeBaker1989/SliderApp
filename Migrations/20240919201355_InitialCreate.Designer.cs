@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ImageSliderApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240918135416_RenameOverlayTable")]
-    partial class RenameOverlayTable
+    [Migration("20240919201355_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -30,9 +30,15 @@ namespace ImageSliderApp.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("OverlayID"));
 
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Position")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Room")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("TemplateID")
@@ -84,6 +90,10 @@ namespace ImageSliderApp.Migrations
                         .HasColumnType("int");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("TemplateID"));
+
+                    b.Property<string>("Room")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("TemplateImagePath")
                         .HasColumnType("longtext");

@@ -22,72 +22,54 @@ public class TemplateController : Controller
         return View("~/Views/Template/AddTemplate.cshtml");
     }
 
-        public IActionResult AddOverlay(int templateId)
+           public IActionResult AddOverlay(int templateId)
         {
-            // Maak een nieuwe overlay en koppel het aan het templateId
             var overlay = new Overlay { TemplateID = templateId };
             return View(overlay);
         }
         // POST: /Template/AddOverlay
-[HttpPost]
-public async Task<IActionResult> AddOverlay(int templateId, string content, string position)
-{
-    // Log om te zien of het TemplateID correct is
-    Console.WriteLine($"Received TemplateID: {templateId}");
-
-    // Controleer of het template bestaat
-    var template = await _context.Templates.FirstOrDefaultAsync(t => t.TemplateID == templateId);
-
-    if (template == null)
-    {
-        ModelState.AddModelError("", "The specified template does not exist.");
-        return View();  // Toon de view opnieuw met een foutmelding
-    }
-
-    // Maak de overlay aan
-    var overlay = new Overlay
-    {
-        Content = content,
-        Position = position,
-        TemplateID = template.TemplateID  // Gebruik het TemplateID van het gevonden template
-    };
-
-    if (ModelState.IsValid)
-    {
-        _context.Overlays.Add(overlay);
-
-        try
+ [HttpPost]
+        public async Task<IActionResult> AddOverlay(int templateId, string content, string position, string room)
         {
-            var result = await _context.SaveChangesAsync();
+            // Controleer of het template bestaat
+            var template = await _context.Templates.FirstOrDefaultAsync(t => t.TemplateID == templateId);
 
-            if (result > 0)
+            if (template == null)
             {
+                ModelState.AddModelError("", "The specified template does not exist.");
+                return View();
+            }
+
+            // Maak de overlay aan met de gekozen Room
+            var overlay = new Overlay
+            {
+                Content = content,
+                Position = position,
+                Room = room,  // Sla de gekozen ruimte op
+                TemplateID = template.TemplateID
+            };
+
+            if (ModelState.IsValid)
+            {
+                _context.Overlays.Add(overlay);
+                await _context.SaveChangesAsync();
                 return RedirectToAction("ViewTemplate", new { templateId = template.TemplateID });
             }
-            else
-            {
-                ModelState.AddModelError("", "Failed to add the overlay.");
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error adding overlay: {ex.Message}");
-            ModelState.AddModelError("", "An error occurred while adding the overlay.");
-        }
-    }
 
-    return View(overlay);
-}
+            return View(overlay);
+        }
+
+
 
 
 
 // GET: /Template/AssignToRoom/{templateId}
-public IActionResult AssignToRoom(int templateId)
-{
-    var roomTemplate = new RoomTemplate { TemplateID = templateId };
-    ViewBag.Rooms = new SelectList(_context.Rooms, "RoomID", "RoomName");  // Dropdown met rooms
-    return View(roomTemplate);
-}
+// public IActionResult AssignToRoom(int templateId)
+// {
+//     var roomTemplate = new RoomTemplate { TemplateID = templateId };
+//     ViewBag.Rooms = new SelectList(_context.Rooms, "RoomID", "RoomName");  // Dropdown met rooms
+//     return View(roomTemplate);
+// }
 
 // POST: /Template/AssignToRoom
 [HttpPost]

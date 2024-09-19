@@ -13,6 +13,14 @@
       "PackagePath": "staticwebassets/favicon.ico"
     },
     {
+      "Id": "/Users/willemdejong/ImageSliderApp/wwwroot/images/intern/testwallpaper.jpg",
+      "PackagePath": "staticwebassets/images/intern/testwallpaper.jpg"
+    },
+    {
+      "Id": "/Users/willemdejong/ImageSliderApp/wwwroot/images/intern/testwallpaper1.jpg",
+      "PackagePath": "staticwebassets/images/intern/testwallpaper1.jpg"
+    },
+    {
       "Id": "/Users/willemdejong/ImageSliderApp/wwwroot/images/testwallpaper.jpg",
       "PackagePath": "staticwebassets/images/testwallpaper.jpg"
     },

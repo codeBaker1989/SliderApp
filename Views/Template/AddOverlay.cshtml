@@ -18,6 +18,17 @@
         </select>
     </div>
 
+    <div class="form-group">
+        <label for="room">Choose Room:</label>
+        <select name="room" class="form-control" required>
+            <option value="intern">Intern</option>
+            <option value="extern">Extern</option>
+            <option value="showroom1">Showroom 1</option>
+            <option value="showroom2">Showroom 2</option>
+            <option value="showroom3">Showroom 3</option>
+        </select>
+    </div>
+
     <!-- Voeg het TemplateID toe als verborgen veld -->
     <input type="hidden" name="templateId" value="@ViewBag.TemplateID" />
 

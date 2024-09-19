@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ImageSliderApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240916190700_AllowNullForTemplateFields")]
-    partial class AllowNullForTemplateFields
+    [Migration("20240919210655_AddRoomToTemplate")]
+    partial class AddRoomToTemplate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,10 @@ namespace ImageSliderApp.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Room")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<int>("TemplateID")
                         .HasColumnType("int");
 
@@ -47,7 +51,7 @@ namespace ImageSliderApp.Migrations
 
                     b.HasIndex("TemplateID");
 
-                    b.ToTable("Overlay");
+                    b.ToTable("Overlays");
                 });
 
             modelBuilder.Entity("ImageSliderApp.Models.Room", b =>
@@ -59,7 +63,6 @@ namespace ImageSliderApp.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("RoomID"));
 
                     b.Property<string>("RoomName")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)");
 
@@ -91,12 +94,14 @@ namespace ImageSliderApp.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("TemplateID"));
 
-                    b.Property<string>("TemplateImagePath")
+                    b.Property<string>("Room")
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("TemplateImagePath")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("TemplateName")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("TemplateID");

@@ -31,15 +31,26 @@ public class HomeController : Controller
     //     return View(model); 
     // }
 
-    public async Task<IActionResult> Slider(int roomId)
+        // Actie om sliders per ruimte te tonen
+    public IActionResult Slider(string room)
 {
-    // Haal templates op die aan de geselecteerde room zijn gekoppeld
-    var roomTemplates = await _context.RoomTemplates
-        .Include(rt => rt.Template)
-        .Where(rt => rt.RoomID == roomId)
-        .ToListAsync();
+     if (string.IsNullOrEmpty(room))
+            {
+                return NotFound("Room not specified.");
+            }
 
-    return View(roomTemplates);
+            // Haal het Template op met de bijbehorende overlays voor de opgegeven room
+            var template = _context.Templates
+                                   .Include(t => t.Overlays)  // Haal de overlays op die bij dit template horen
+                                   .FirstOrDefault(t => t.Room == room);
+
+            if (template == null)
+            {
+                return NotFound("Template not found for the specified room.");
+            }
+
+            // Geef het template door aan de view
+            return View(template);
 }
 
     public IActionResult Privacy()

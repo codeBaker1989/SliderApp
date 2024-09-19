@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ImageSliderApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240916171636_AdjustStringLengths")]
-    partial class AdjustStringLengths
+    [Migration("20240919201559_AddRoomToOverlay")]
+    partial class AddRoomToOverlay
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,36 +24,60 @@ namespace ImageSliderApp.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("ImageSliderApp.Models.Hall", b =>
+            modelBuilder.Entity("ImageSliderApp.Models.Overlay", b =>
                 {
-                    b.Property<int>("HallID")
+                    b.Property<int>("OverlayID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("HallID"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("OverlayID"));
 
-                    b.Property<string>("HallName")
-                        .IsRequired()
+                    b.Property<string>("Content")
                         .HasColumnType("longtext");
 
-                    b.HasKey("HallID");
+                    b.Property<string>("Position")
+                        .HasColumnType("longtext");
 
-                    b.ToTable("Halls");
+                    b.Property<int>("TemplateID")
+                        .HasColumnType("int");
+
+                    b.HasKey("OverlayID");
+
+                    b.HasIndex("TemplateID");
+
+                    b.ToTable("Overlays");
                 });
 
-            modelBuilder.Entity("ImageSliderApp.Models.HallTemplate", b =>
+            modelBuilder.Entity("ImageSliderApp.Models.Room", b =>
                 {
-                    b.Property<int>("HallID")
+                    b.Property<int>("RoomID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("RoomID"));
+
+                    b.Property<string>("RoomName")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("RoomID");
+
+                    b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("ImageSliderApp.Models.RoomTemplate", b =>
+                {
+                    b.Property<int>("RoomID")
                         .HasColumnType("int");
 
                     b.Property<int>("TemplateID")
                         .HasColumnType("int");
 
-                    b.HasKey("HallID", "TemplateID");
+                    b.HasKey("RoomID", "TemplateID");
 
                     b.HasIndex("TemplateID");
 
-                    b.ToTable("HallTemplates");
+                    b.ToTable("RoomTemplates");
                 });
 
             modelBuilder.Entity("ImageSliderApp.Models.Template", b =>
@@ -65,11 +89,9 @@ namespace ImageSliderApp.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("TemplateID"));
 
                     b.Property<string>("TemplateImagePath")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("TemplateName")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("TemplateID");
@@ -77,33 +99,46 @@ namespace ImageSliderApp.Migrations
                     b.ToTable("Templates");
                 });
 
-            modelBuilder.Entity("ImageSliderApp.Models.HallTemplate", b =>
+            modelBuilder.Entity("ImageSliderApp.Models.Overlay", b =>
                 {
-                    b.HasOne("ImageSliderApp.Models.Hall", "Hall")
-                        .WithMany("HallTemplates")
-                        .HasForeignKey("HallID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ImageSliderApp.Models.Template", "Template")
-                        .WithMany("HallTemplates")
+                        .WithMany("Overlays")
                         .HasForeignKey("TemplateID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Hall");
+                    b.Navigation("Template");
+                });
+
+            modelBuilder.Entity("ImageSliderApp.Models.RoomTemplate", b =>
+                {
+                    b.HasOne("ImageSliderApp.Models.Room", "Room")
+                        .WithMany("RoomTemplates")
+                        .HasForeignKey("RoomID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ImageSliderApp.Models.Template", "Template")
+                        .WithMany("RoomTemplates")
+                        .HasForeignKey("TemplateID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Room");
 
                     b.Navigation("Template");
                 });
 
-            modelBuilder.Entity("ImageSliderApp.Models.Hall", b =>
+            modelBuilder.Entity("ImageSliderApp.Models.Room", b =>
                 {
-                    b.Navigation("HallTemplates");
+                    b.Navigation("RoomTemplates");
                 });
 
             modelBuilder.Entity("ImageSliderApp.Models.Template", b =>
                 {
-                    b.Navigation("HallTemplates");
+                    b.Navigation("Overlays");
+
+                    b.Navigation("RoomTemplates");
                 });
 #pragma warning restore 612, 618
         }

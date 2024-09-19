@@ -2,6 +2,15 @@
 
 <h2>Templates</h2>
 
+<h2>Select Room to View Slides</h2>
+
+<a href="@Url.Action("Slider", "Home", new { room = "intern" })" class="btn btn-primary">Intern</a>
+<a href="@Url.Action("Slider", "Home", new { room = "extern" })" class="btn btn-primary">Extern</a>
+<a href="@Url.Action("Slider", "Home", new { room = "showroom1" })" class="btn btn-primary">Showroom 1</a>
+<a href="@Url.Action("Slider", "Home", new { room = "showroom2" })" class="btn btn-primary">Showroom 2</a>
+<a href="@Url.Action("Slider", "Home", new { room = "showroom3" })" class="btn btn-primary">Showroom 3</a>
+
+
 <table class="table">
     <thead>
         <tr>
@@ -54,6 +63,8 @@
         }
     </tbody>
 </table>
+
+
 
 <!-- CSS voor de overlays -->
 <style>

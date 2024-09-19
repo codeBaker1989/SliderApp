@@ -1,20 +1,54 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using ImageSliderApp.Models
-@model ImageModel
 
+@model ImageSliderApp.Models.Template
+
+
+@functions {
+    public string GetOverlayPosition(string position)
+    {
+        switch (position)
+        {
+            case "top-left": return "top: 10px; left: 10px;";
+            case "top-right": return "top: 10px; right: 10px;";
+            case "bottom-left": return "bottom: 10px; left: 10px;";
+            case "bottom-right": return "bottom: 10px; right: 10px;";
+            default: return "top: 10px; left: 10px;"; // Standaard naar boven links als er geen positie is opgegeven
+        }
+    }
+}
+<style>
+
+    .overlay {
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        padding: 10px;
+        z-index: 2; /* Zorg ervoor dat de overlay bovenop de afbeelding ligt */
+    }
+
+
+</style>
+
+
+<h2>Slides for @Model.Room</h2>
 
 <div class="swiper">
   <div class="swiper-wrapper">
-    @foreach (var imagePath in Model.ImagePaths)
+    @foreach (var overlay in Model.Overlays)
     {
         <div class="swiper-slide">
-            <img src="@imagePath" alt="Image">
+            <!-- Voeg de afbeelding toe -->
+            <img src="@Model.TemplateImagePath" alt="Image" style="width: 100%; height: auto;" />
+
+            <!-- Voeg de overlay toe -->
+            <div class="overlay" style="position: absolute; @GetOverlayPosition(overlay.Position); background: rgba(0, 0, 0, 0.5); color: white; padding: 5px;">
+                @overlay.Content
+            </div>
         </div>
     }
   </div>
-  
 </div>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
@@ -27,8 +61,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: black;
+  
     }
+
 
     .swiper {
        width: 1512px;
